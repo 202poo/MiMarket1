@@ -5,6 +5,7 @@
  */
 package mimarket.igu;
 
+import java.awt.Color;
 import mimarket.ChangePanel;
 import mimarket.igu.ventas.ReporteVentasPanel;
 import mimarket.igu.ventas.VentasFomPanel;
@@ -20,6 +21,7 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        new ChangePanel(mainPanel, new VentasFomPanel());
     }
 
     /**
@@ -33,9 +35,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        ventsButton = new mimarket.igu.utils.buttons.TheButton();
+        ReporButton = new mimarket.igu.utils.buttons.TheButton();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         mainPanel = new javax.swing.JPanel();
@@ -44,42 +45,53 @@ public class MainFrame extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
-
-        jButton1.setText("Venta");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ventsButton.setBackground(new java.awt.Color(204, 204, 204));
+        ventsButton.setForeground(new java.awt.Color(128, 128, 131));
+        ventsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mimarket/igu/imgs/icons/market.png"))); // NOI18N
+        ventsButton.setText("Ventas");
+        ventsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ventsButtonMousePressed(evt);
+            }
+        });
+        ventsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ventsButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Reporte");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        ReporButton.setBackground(new java.awt.Color(239, 238, 244));
+        ReporButton.setForeground(new java.awt.Color(128, 128, 131));
+        ReporButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/mimarket/igu/imgs/icons/reportes.png"))); // NOI18N
+        ReporButton.setText("Reportes");
+        ReporButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ReporButtonMousePressed(evt);
             }
         });
-
-        jButton3.setText("jButton3");
+        ReporButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReporButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ventsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 296, Short.MAX_VALUE))
+                .addComponent(ReporButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 293, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ventsButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ReporButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 53, Short.MAX_VALUE))
         );
 
         mainPanel.setLayout(new javax.swing.BoxLayout(mainPanel, javax.swing.BoxLayout.LINE_AXIS));
@@ -93,7 +105,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -125,18 +137,49 @@ public class MainFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ventsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventsButtonActionPerformed
         // TODO add your handling code here:
         System.out.println("Ventas Form");
         
         new ChangePanel(mainPanel, new VentasFomPanel());
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+        if (this.ventsButton.isSelected()) {
+            this.ventsButton.setColorNormal(new Color(204, 204, 204));
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+            this.ReporButton.setColorNormal(new Color(239, 238, 244));
+
+        } else {
+            this.ventsButton.setColorNormal(new Color(239, 238, 244));
+        }
+    }//GEN-LAST:event_ventsButtonActionPerformed
+
+    private void ReporButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReporButtonActionPerformed
         // TODO add your handling code here:
         System.out.println("Reporte de Ventas ");
         new ChangePanel(mainPanel, new ReporteVentasPanel());
-    }//GEN-LAST:event_jButton2ActionPerformed
+        
+        if (this.ReporButton.isSelected()) {
+            this.ReporButton.setColorNormal(new Color(204, 204, 204));
+
+            this.ventsButton.setColorNormal(new Color(239, 238, 244));
+
+        } else {
+            this.ReporButton.setColorNormal(new Color(239, 238, 244));
+        }
+        
+    }//GEN-LAST:event_ReporButtonActionPerformed
+
+    private void ventsButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ventsButtonMousePressed
+        // TODO add your handling code here:
+        this.ventsButton.setSelected(true);
+        this.ReporButton.setSelected(false);
+    }//GEN-LAST:event_ventsButtonMousePressed
+
+    private void ReporButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReporButtonMousePressed
+        // TODO add your handling code here:
+         this.ReporButton.setSelected(true);
+        this.ventsButton.setSelected(false);
+    }//GEN-LAST:event_ReporButtonMousePressed
 
     /**
      * @param args the command line arguments
@@ -174,13 +217,12 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private mimarket.igu.utils.buttons.TheButton ReporButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JPanel mainPanel;
+    private mimarket.igu.utils.buttons.TheButton ventsButton;
     // End of variables declaration//GEN-END:variables
 }
